@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Reveal</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #countdown, #message {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown">Time left: <span id="time"></span></div>
+    <div id="message" style="display: none;">🎉 Surprise! Here’s your special letter: [Your Letter Content Here]</div>
+
+    <script>
+        // Set the date and time for countdown
+        const countdownDate = new Date("Nov 9, 2024 14:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const timeRemaining = countdownDate - now;
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("time").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (timeRemaining < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("message").style.display = "block";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

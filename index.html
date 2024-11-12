@@ -3,27 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to Reveal</title>
+    <title>Countdown</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        #countdown, #message {
-            font-size: 2rem;
+        
+        /* Body and background styling */
+        body {
+            background-color: #f9f3e9; /* Soft beige color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Georgia', serif; /* Elegant, classic font */
+            color: #4d4b47; /* Dark brown-gray for text */
+            min-height: 100vh;
+            padding: 20px;
+			overflow-y: auto; /* Enable vertical scrolling */  
+        }
+
+        /* Animated hearts container */
+        .heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: none; /* Initially hidden until countdown ends */
+        }
+
+        /* Individual hearts styling and animation */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+            animation: float 8s ease-in infinite;
+            opacity: 0.7;
+        }
+
+        /* Randomize heart sizes and positions */
+        .heart svg {
+            fill: #e27d7d; /* Soft red color for hearts */
+            transform: scale(3);
+            opacity: 0.9;
+        }
+
+        /* Keyframes for heart float animation */
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Letter container */
+        .letter {
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            line-height: 1.6;
+            font-size: 1.1em;
+            text-align: left;
+            display: none; /* Hidden until countdown ends */
+            position: relative;
+            z-index: 1; /* Place above heart animation */
+			margin: auto;
+        }
+
+        /* Heading styling */
+        .letter h1 {
+            font-family: 'Brush Script MT', cursive; /* Romantic cursive font for the heading */
+            font-size: 2em;
+            color: #a45d5d; /* Soft red for the title */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Countdown styling */
+        #countdown {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #a45d5d;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Paragraph styling */
+        .letter p {
+            margin-bottom: 20px;
+        }
+
+        /* Signature styling */
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+            font-style: italic;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div id="countdown">Time left: <span id="time"></span></div>
-    <div id="message" style="display: none;">🎉 Surprise! Here’s your special letter: Hello World!</div>
+    <!-- Countdown display -->
+    <div id="countdown">Time remaining: <span id="time"></span></div>
+
+    <!-- Hearts animation container -->
+    <div id="heartContainer" class="heart-container">
+        <!-- SVG heart shapes for animation -->
+        <div class="heart" style="left: 10%; animation-delay: 0s;">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div class="heart" style="left: 50%; animation-delay: 1s;">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div class="heart" style="left: 90%; animation-delay: 2s;">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <!-- Add more hearts with varying positions and delays for effect -->
+    </div>
+
+    <!-- Letter content -->
+    <div id="message" class="letter">
+        <h1>To My Love</h1>
+        <p>Two and a half years ago, I confessed my feelings to you.<br>
+           Two and a half years ago, you conquered my heart.<br>
+           Two and a half years ago, you and I created a bond!</p>
+
+        <p>And after two and a half years, our bond is stronger than ever.<br>
+           It's hard to believe how quickly time has flown and how far we've come.<br>
+           All the feelings we have for each other, and the moments we’ve shared...<br>
+           Joy and laughter, tears and sadness, success and struggle... and we’re still here, holding each other through it all.</p>
+
+        <p>My love, I am truly thankful for everything.<br>
+           I am grateful for the simple days and moments, for the adventures we have had, and for the ways you make my life better than I ever thought possible with all the distance.<br>
+           You are my partner, my best friend, and the one who loves me like no one else.</p>
+
+        <p>Looking back on these two and a half years,<br>
+           I feel like the luckiest person to have found someone who loves me like you do and who I can build my future and life with.<br>
+           You make life so beautiful, and I can’t wait to see what the next years bring.<br>
+           Cheers to us, baby, cheers to our love, and to all that the future holds for us.</p>
+
+        <p class="signature">With all my heart thirak ❤️,<br>P'Nony</p> 
+    </div>
 
     <script>
         // Set the date and time for countdown
-        const countdownDate = new Date("Nov 9, 2024 15:00:00").getTime();
+        const countdownDate = new Date("Nov 12, 2024 19:58:00").getTime();
 
         const timer = setInterval(function() {
             const now = new Date().getTime();
@@ -36,10 +174,12 @@
 
             document.getElementById("time").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
+            // Show letter and heart animation when countdown ends
             if (timeRemaining < 0) {
                 clearInterval(timer);
                 document.getElementById("countdown").style.display = "none";
                 document.getElementById("message").style.display = "block";
+                document.getElementById("heartContainer").style.display = "block";
             }
         }, 1000);
     </script>
